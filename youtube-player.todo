@@ -1,0 +1,12 @@
+## Planejamento do projeto ##
+
+Sprint #1 - Figma:
+  ✔ Criar layout - Mobile First @done(20-08-30 14:46)
+Sprint #2 - HTML e CSS:
+  ✔ Criar estrutura da Aplicação @done(20-08-30 16:47)
+  ✔ Definir nomes das classes no padrão BEM CSS @done(20-08-30 16:47)
+  ✔ Criar classes e estilizar de acordo com layout definido no Figma @done(20-08-30 16:47)
+Sprint #3 - VanillaJS:
+  ☐ Criar player
+
+URL = https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCfNI55uG-MtkSArhKv0TkrNdrurI-VltI&type=video&channelId=UCSJ4gkVC6NrvII8umztf0Ow&q=lo-fi
