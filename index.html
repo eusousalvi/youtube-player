@@ -12,27 +12,48 @@
   <div id="container" class="container">
 
     <section class="search">
+      <div id="invalidSearch" class="search__invalid">
+        Try another mood...
+        <span class="invalid__tooltip"></span>
+      </div>
       <header class="search__header">
         <h1 class="header__title">Chill <span class="header__sub">player</span></h1>
       </header>
-      <input id="searchInput" class="search__input" type="text" placeholder="MOOD...">
-      <button id="searchPlayBtn" class="search__btn">PLAY</button>
+      <form id="searchForm" class="search__form">
+        <input required id="formInput" class="form__input" type="text" placeholder="mood...">
+        <button class="form__btn">PLAY</button>
+      </form>
     </section>
 
     <section>
-      <div id="controls">
+      <div id="controls" class="controls">
         <div class="controls__next">
-          <button id="next">next</button>
+          <button class="controls__btn" id="next">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M2 8.644l5.274 3.356-5.274 3.356v-6.712zm-2-3.644v14l11-7-11-7zm13 3.644l5.274 3.356-5.274 3.356v-6.712zm-2-3.644v14l11-7-11-7zm13 1h-2v12h2v-12z" /></svg>
+          </button>
         </div>
 
         <div class="controls__pausePlayStop">
-          <button id="pause">pause</button>
-          <button id="play">play</button>
-          <button id="stop">stop</button>
+          <button class="controls__btn" id="pause">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+              <path d="M10 24h-6v-24h6v24zm10 0h-6v-24h6v24zm-11-23h-4v22h4v-22zm10 0h-4v22h4v-22z" /></svg>
+          </button>
+          <button class="controls__btn" id="play">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M2 24v-24l20 12-20 12z" /></svg>
+          </button>
+          <button class="controls__btn" id="stop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M22 2v20h-20v-20h20zm2-2h-24v24h24v-24z" /></svg>
+          </button>
         </div>
 
         <div class="controls__prev">
-          <button id="prev">prev</button>
+          <button class="controls__btn" id="prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M22 15.356l-5.274-3.356 5.274-3.356v6.712zm-9-3.356l11 7v-14l-11 7zm-2 3.356l-5.274-3.356 5.274-3.356v6.712zm-9-3.356l11 7v-14l-11 7zm-2 6h2v-12h-2v12z" /></svg>
+          </button>
         </div>
       </div>
       <div id="player" class="player"></div>
@@ -40,7 +61,12 @@
 
     <section>
       <div class="now">
-
+        <img id="nowCover" class="now__cover" src="https://img.youtube.com/vi/TTXFKD7fMlE/0.jpg" alt="">
+        <div id="nowInfo" class="now__info">
+          <h2 id="infoTitle" class="info__title">Chillhop Essentials Summer 2018 • jazz beats & chill hiphop</h2>
+          <p id="infoAuthor" class="info__author">Chilled Cow</p>
+          <p id="infoTime" class="info__time">01:12:00</p>
+        </div>
       </div>
     </section>
   </div>
