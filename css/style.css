@@ -2,6 +2,7 @@
 
 :root {
   --main-blue: #4782b8;
+  --main-blue-opacity: #4782b8dd;
   --very-light-gray: #ededed;
   --light-gray: #afafaf;
   --gray: #c4c4c4;
@@ -23,6 +24,42 @@
   align-items: center;
   flex-direction: column;
   position: relative;
+}
+
+.container__loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: -1;
+  opacity: 0;
+}
+
+.loading__dots {
+  display: flex;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 8px;
+  border-radius: 50%;
+  background-color: #cecece;
+  transition: all 1s ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation: loading 0.8s ease-in-out infinite;
+}
+.dot:nth-child(2) {
+  animation: loading 0.8s ease-in-out infinite 0.3s;
+}
+.dot:nth-child(3) {
+  animation: loading 0.8s ease-in-out infinite 0.5s;
 }
 
 .search {
@@ -115,6 +152,8 @@
   justify-content: center;
   align-items: center;
   margin: 50px 0;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
 
 .controls__btn {
@@ -124,7 +163,6 @@
   border: none;
   background-color: #fff;
   outline: none;
-  cursor: pointer;
   position: relative;
 }
 
@@ -171,6 +209,19 @@
   opacity: 1;
 }
 
+.form__btn:hover {
+  background-color: var(--main-blue-opacity);
+}
+
+.form__btn:active {
+  animation: clicked 0.5s ease-in-out;
+}
+
+.controls--on {
+  opacity: 1;
+  cursor: pointer;
+}
+
 .controls__btn:hover {
   fill: var(--main-blue);
 }
@@ -179,9 +230,33 @@
   animation: clicked 0.5s cubic-bezier(0.3, 0.5, 1, 2);
 }
 
+.container__loading--on {
+  z-index: 2;
+  opacity: 1;
+}
+
 /* #### BUTTON CLICK ANIMATION #### */
 @keyframes clicked {
-  to {
-    transform: rotate(360deg);
+  0% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+/* #### LOADING DOT ANIMATION #### */
+@keyframes loading {
+  0% {
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(0.3);
   }
 }
