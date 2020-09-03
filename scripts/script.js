@@ -1,3 +1,8 @@
+// RETORNO DE ELEMENTO DOM POR ID
+function element(id) {
+  return document.getElementById(id);
+}
+
 // OBJETO PLAYER
 let player;
 
@@ -6,6 +11,15 @@ let state = {
   playlist: [],
   maxVideos: 10,
   key: '',
+};
+
+// OBJETO DO NOW PLAYING
+const now = {
+  cover: element('nowCover'),
+  title: element('infoTitle'),
+  author: element('infoAuthor'),
+  time: element('infoTime'),
+  loading: element('loading'),
 };
 
 // RECUPERANDO CHAVE DA API E SALVANDO NO ESTADO
@@ -23,7 +37,7 @@ function addControls() {
   element('controls').classList.add('controls--on');
 }
 
-// CARREGANDO SCRIPT DA API DO YOUTUBE DE FORMA ASSÍNCRONA
+// CARREGANDO SCRIPT DA API DO YOUTUBE DE FORMA ASSÍNCRONA COMO SUGERIDO PELA API
 let tag = document.createElement('script');
 tag.src = 'https://www.youtube.com/iframe_api';
 const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -42,6 +56,7 @@ function onYouTubeIframeAPIReady() {
     },
     events: {
       onStateChange: onChangePlayer,
+      onError: handleError,
     },
   });
 }
@@ -50,17 +65,16 @@ function onYouTubeIframeAPIReady() {
 element('searchForm').addEventListener('submit', (event) => {
   event.preventDefault();
   fetchVideos(state.key, event.target.formInput.value, state.maxVideos);
-  console.log(player);
 });
 
 // FETCH PARA BUSCAR VIDEOS ATRAVÉS DA API DO YOUTUBE
 async function fetchVideos(key, search, maxResults) {
   const response = await fetch(
-    `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${key}&type=video&channelId=UCSJ4gkVC6NrvII8umztf0Ow&maxResults=${maxResults}&q=${search}`,
+    `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${key}&type=video&videoCategoryId=10&videoEmbeddable=true&maxResults=${maxResults}&q=music+${search}`,
   );
   const json = await response.json();
-
-  if (json.pageInfo.totalResults > 0) {
+  console.log(json);
+  if (!json.error && json.pageInfo.totalResults > 0) {
     const { items } = json;
     state.playlist = items.map((item) => {
       return item.id.videoId;
@@ -71,7 +85,7 @@ async function fetchVideos(key, search, maxResults) {
   }
 }
 
-// ON STATE PLAYER CHANGE
+// EVENTO DE ESTADO DO PLAYER
 function onChangePlayer(event) {
   // MOSTRANDO LOADING ANTES DE CARREGAR INFO
   loadingInfo(event.target.getPlayerState());
@@ -81,7 +95,6 @@ function onChangePlayer(event) {
     loadVideoThumb(event.target.getVideoData());
     addControls();
   }
-  console.log(event.target.getPlayerState());
 }
 
 // BUSCA INVALIDA
@@ -102,15 +115,6 @@ function loadVideos(playlist) {
   player.setLoop(true);
 }
 
-// OBJETO DO NOW PLAYING
-const now = {
-  cover: element('nowCover'),
-  title: element('infoTitle'),
-  author: element('infoAuthor'),
-  time: element('infoTime'),
-  loading: element('loading'),
-};
-
 // CARREGANDO INFORMAÇÕES DA MÚSICA ATUAL
 function loadVideoThumb(data) {
   const date = new Date(player.getDuration() * 1000);
@@ -128,16 +132,20 @@ function loadVideoThumb(data) {
     .padStart(2, '0')}:${date.getUTCSeconds().toString().padStart(2, '0')}`;
 }
 
-// LOADING DAS INFORMAÇÕES DA MÚSICA ATUAL
+// LOADING DO APP
 function loadingInfo(playerState) {
-  if (playerState != 1 && playerState != 5 && playerState != 2) {
+  if (
+    playerState != 1 &&
+    playerState != 5 &&
+    playerState != 2 &&
+    playerState != -1
+  ) {
     now.loading.classList.add('container__loading--on');
   } else {
     now.loading.classList.remove('container__loading--on');
   }
 }
 
-// RETORNO DE ELEMENTO DOM POR ID
-function element(id) {
-  return document.getElementById(id);
+function handleError(event) {
+  invalidSearch();
 }
