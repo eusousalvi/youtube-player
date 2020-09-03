@@ -73,7 +73,6 @@ async function fetchVideos(key, search, maxResults) {
     `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${key}&type=video&videoCategoryId=10&videoEmbeddable=true&maxResults=${maxResults}&q=music+${search}`,
   );
   const json = await response.json();
-  console.log(json);
   if (!json.error && json.pageInfo.totalResults > 0) {
     const { items } = json;
     state.playlist = items.map((item) => {
